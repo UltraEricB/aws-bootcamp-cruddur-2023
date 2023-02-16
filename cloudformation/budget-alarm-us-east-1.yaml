@@ -106,7 +106,7 @@ Resources:
     Properties:
       ActionsEnabled: true
       AlarmDescription: "Estimated AWS cost exceeded $1"
-      AlarmName: !Sub "Alarm-$(Name)"
+      AlarmName: !Sub Alarm-${Name}
       ComparisonOperator: GreaterThanThreshold
       EvaluationPeriods: 1
       MetricName: EstimatedCharges
