@@ -2,7 +2,7 @@
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
-tasks:
+    - cweijan.vscode-postgresql-client2tasks:
   - name: Initialize & Configure AWS
     command: bash $GITPOD_REPO_ROOT/awscli.sh
   - name: postgres
