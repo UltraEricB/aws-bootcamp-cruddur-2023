@@ -4,8 +4,10 @@ services:
     environment:
       FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+      OTEL_SERVICE_NAME: "backend-flask"
     build: ./backend-flask
-    image: ericbellavance/aws-bootcamp-cruddur-2023:latest
     ports:
       - "4567:4567"
     volumes:
@@ -16,13 +18,14 @@ services:
     build: ./frontend-react-js
     ports:
       - "3000:3000"
+    healthcheck:
+      test: curl --fail https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST} || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
     volumes:
       - ./frontend-react-js:/frontend-react-js
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
   dynamodb-local:
     # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
     # We needed to add user:root to get this working.
