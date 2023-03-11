@@ -1,9 +1,3 @@
-
-vscode:
-  extensions:
-    - 42Crunch.vscode-openapi
-    - cweijan.vscode-postgresql-client2
-
 tasks:
   - name: aws-cli
     env:
@@ -42,3 +36,9 @@ ports:
   - name: xray-daemon
     port: 2000
     visibility: public
+
+vscode:
+  extensions:
+    - 42Crunch.vscode-openapi
+    - cweijan.vscode-postgresql-client2
+    
